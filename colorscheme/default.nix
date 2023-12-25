@@ -44,7 +44,7 @@ in {
         builtins.readFile "${tk}/extras/tmux/tokyonight_${variant}.tmux";
 
       fish.interactiveShellInit =
-        builtins.readFile "${tk}/extras/fish/tokyonight_{variant}.fish";
+        builtins.readFile "${tk}/extras/fish/tokyonight_${variant}.fish";
 
       neovim.plugins = [ pkgs.vimPlugins.tokyonight-nvim ];
 
