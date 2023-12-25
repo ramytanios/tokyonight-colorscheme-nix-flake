@@ -3,13 +3,13 @@ inputs:
 with lib;
 
 let
-  cfg = config.colorschemes.tokyonight;
+  cfg = config.colorscheme.tokyonight;
   inherit (cfg) variant;
   tk = inputs.tokyonight;
   variants = [ "day" "moon" "night" "storm" ];
 
 in {
-  options.colorschemes.tokyonight = {
+  options.colorscheme.tokyonight = {
 
     enable =
       mkEnableOption "tokyonight colorscheme for neovim, kitty, fish and tmux";
