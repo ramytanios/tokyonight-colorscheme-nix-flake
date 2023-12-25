@@ -7,7 +7,7 @@
     flake = false;
   };
 
-  outputs = inputs@{ self }: {
+  outputs = inputs@{ self, ...}: {
     homeModules = { colorscheme = import ./colorscheme inputs; };
   };
 }
