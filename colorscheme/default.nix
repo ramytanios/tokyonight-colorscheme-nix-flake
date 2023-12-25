@@ -14,7 +14,13 @@ in {
     enable =
       mkEnableOption "tokyonight colorscheme for neovim, kitty, fish and tmux";
 
-    themeExtraLua = mkOption { type = types.str; };
+    themeExtraLua = mkOption {
+      type = types.lines;
+      default = "";
+      example = ''
+        require("tokyonight").setup({})
+      '';
+    };
 
     variant = mkOption {
       default = "storm";
