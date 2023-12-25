@@ -8,7 +8,7 @@
   };
 
   outputs = inputs@{ self }: {
-    homeModules = { colorscheme = import ./tokyonight inputs; };
+    homeModules = { colorscheme = import ./colorscheme inputs; };
   };
 }
 

@@ -1,10 +1,12 @@
-inputs: { lib, pkgs, config, ... }:
+inputs:
+{ lib, pkgs, config, ... }:
 with lib;
 
 let
   cfg = config.colorschemes.tokyonight;
   inherit (cfg) variant;
   tk = inputs.tokyonight;
+  variants = [ "day" "moon" "night" "storm" ];
 
 in {
   options.colorschemes.tokyonight = {
@@ -12,8 +14,11 @@ in {
     enable =
       mkEnableOption "tokyonight colorscheme for neovim, kitty, fish and tmux";
 
+    themeExtraLua = mkOption { type = types.str; };
+
     variant = mkOption {
       default = "storm";
+      type = types.enum (variants);
       example = ''
         "storm", "day", "moon" or "night"
       '';
@@ -30,16 +35,15 @@ in {
       '';
 
       tmux.extraConfig =
-        builtins.readFile "${tk}/extrax/tmux/tokyonight_${variant}.tmux";
+        builtins.readFile "${tk}/extras/tmux/tokyonight_${variant}.tmux";
 
-      fish.plugins = [{
-        name = "tokyonight-fish";
-        inherit (tk) src;
-      }];
+      fish.interactiveShellInit =
+        builtins.readFile "${tk}/extras/fish/tokyonight_{variant}.conf";
 
       neovim.plugins = [ pkgs.vimPlugins.tokyonight-nvim ];
 
       neovim.extraLuaConfig = ''
+        ${cfg.themeExtraLua}
         vim.cmd.colorscheme("tokyonight-${variant}")
       '';
     };
