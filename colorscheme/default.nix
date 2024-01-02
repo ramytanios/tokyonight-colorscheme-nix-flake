@@ -24,17 +24,14 @@ in {
       description = "Tokyonight style";
     };
 
-    # fish
-    fish.enable = mkEnableOption "Enable fish tokyonight colorscheme";
-
-    # kitty
-    kitty.enable = mkEnableOption "Enable kitty tokyonight colorscheme";
-
-    # tmux
-    tmux.enable = mkEnableOption "Enable tmux tokyonight colorscheme";
-
-    # neovim
-    neovim.enable = mkEnableOption "Enable neovim tokyonight colorscheme";
+    fish.enable =
+      mkEnableOption "Whether to enable Tokyonight colorscheme for Fish";
+    kitty.enable =
+      mkEnableOption "Whether to enable Tokyonight colorscheme for Kitty";
+    tmux.enable =
+      mkEnableOption "Whether to enable Tokyonight colorscheme for Tmux";
+    neovim.enable =
+      mkEnableOption "Whether to enable the Tokyonight colorscheme for Neovim";
     neovim.extraLua = mkOption {
       type = types.lines;
       default = "";
@@ -46,7 +43,7 @@ in {
           }
         })
       '';
-      description = "Extra lua configuration for the colorscheme.";
+      description = "Extra lua configuration for the Tokyonight colorscheme.";
     };
 
   };
