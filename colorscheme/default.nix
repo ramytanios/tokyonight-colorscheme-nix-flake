@@ -48,22 +48,27 @@ in {
 
   };
 
-  config = mkIf isKitty {
-    programs.kitty.extraConfig = ''
-      include ${tk}/extras/kitty/tokyonight_${style}.conf;
-    '';
-  } // mkIf isFish {
-    programs.fish.interactiveShellInit =
-      builtins.readFile "${tk}/extras/fish/tokyonight_${style}.fish";
-  } // mkIf isTmux {
-    programs.tmux.extraConfig =
-      builtins.readFile "${tk}/extras/tmux/tokyonight_${style}.tmux";
-  } // mkIf isNeovim {
-    programs.neovim.plugins = [ pkgs.vimPlugins.tokyonight-nvim ];
-    programs.neovim.extraLuaConfig = ''
-      ${cfg.extraLua}
-      vim.cmd.colorscheme("tokyonight-${style}")
-    '';
-  };
+  config = mkMerge [
+    (mkIf isKitty {
+      programs.kitty.extraConfig = ''
+        include ${tk}/extras/kitty/tokyonight_${style}.conf;
+      '';
+    })
+    (mkIf isFish {
+      programs.fish.interactiveShellInit =
+        builtins.readFile "${tk}/extras/fish/tokyonight_${style}.fish";
+    })
+    (mkIf isTmux {
+      programs.tmux.extraConfig =
+        builtins.readFile "${tk}/extras/tmux/tokyonight_${style}.tmux";
+    })
+    (mkIf isNeovim {
+      programs.neovim.plugins = [ pkgs.vimPlugins.tokyonight-nvim ];
+      programs.neovim.extraLuaConfig = ''
+        ${cfg.extraLua}
+        vim.cmd.colorscheme("tokyonight-${style}")
+      '';
+    })
+  ];
 }
 
