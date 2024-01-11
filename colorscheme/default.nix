@@ -17,7 +17,7 @@ in {
 
     style = mkOption {
       default = "storm";
-      type = types.enum (styles);
+      type = types.enum styles;
       example = ''
         "storm", "day", "moon" or "night"
       '';
@@ -34,7 +34,9 @@ in {
       mkEnableOption "Whether to enable the Tokyonight colorscheme for Neovim";
     neovim.extraLua = mkOption {
       type = types.lines;
-      default = "";
+      default = ''
+        require("tokyonight").setup({})
+      '';
       example = ''
           require("tokyonight").setup({
           -- disable italic for functions
