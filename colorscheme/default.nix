@@ -67,7 +67,7 @@ in {
     (mkIf isNeovim {
       programs.neovim.plugins = [ pkgs.vimPlugins.tokyonight-nvim ];
       programs.neovim.extraLuaConfig = ''
-        ${cfg.extraLua}
+        ${if builtins.hasAttr "extraLua" cfg then cfg.extraLua else ""}
         vim.cmd.colorscheme("tokyonight-${style}")
       '';
     })
