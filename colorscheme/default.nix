@@ -53,7 +53,7 @@ in {
   config = mkMerge [
     (mkIf isKitty {
       programs.kitty.extraConfig = ''
-        include ${tk}/extras/kitty/tokyonight_${style}.conf;
+        include ${tk}/extras/kitty/tokyonight_${style}.conf
       '';
     })
     (mkIf isFish {
