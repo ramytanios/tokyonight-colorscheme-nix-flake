@@ -4,8 +4,8 @@
   inputs.tokyonight.url = "github:folke/tokyonight.nvim";
   inputs.tokyonight.flake = false;
 
-  outputs = inputs@{ self, ...}: {
-    homeModules = { colorscheme = import ./colorscheme inputs; };
+  outputs = inputs: {
+    homeModules.colorscheme = import ./colorscheme inputs;
   };
 }
 
