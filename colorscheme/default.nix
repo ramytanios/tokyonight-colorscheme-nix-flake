@@ -1,5 +1,10 @@
 inputs:
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 with lib;
 
 let
@@ -10,9 +15,15 @@ let
   isNeovim = cfg.neovim.enable;
   inherit (cfg) style;
   tk = inputs.tokyonight;
-  styles = [ "day" "moon" "night" "storm" ];
+  styles = [
+    "day"
+    "moon"
+    "night"
+    "storm"
+  ];
 
-in {
+in
+{
   options.colorscheme.tokyonight = {
 
     style = mkOption {
@@ -24,14 +35,10 @@ in {
       description = "Tokyonight style";
     };
 
-    fish.enable =
-      mkEnableOption "Whether to enable Tokyonight colorscheme for Fish";
-    kitty.enable =
-      mkEnableOption "Whether to enable Tokyonight colorscheme for Kitty";
-    tmux.enable =
-      mkEnableOption "Whether to enable Tokyonight colorscheme for Tmux";
-    neovim.enable =
-      mkEnableOption "Whether to enable the Tokyonight colorscheme for Neovim";
+    fish.enable = mkEnableOption "Whether to enable Tokyonight colorscheme for Fish";
+    kitty.enable = mkEnableOption "Whether to enable Tokyonight colorscheme for Kitty";
+    tmux.enable = mkEnableOption "Whether to enable Tokyonight colorscheme for Tmux";
+    neovim.enable = mkEnableOption "Whether to enable the Tokyonight colorscheme for Neovim";
     neovim.extraLua = mkOption {
       type = types.lines;
       default = ''
@@ -57,12 +64,10 @@ in {
       '';
     })
     (mkIf isFish {
-      programs.fish.interactiveShellInit =
-        builtins.readFile "${tk}/extras/fish/tokyonight_${style}.fish";
+      programs.fish.interactiveShellInit = builtins.readFile "${tk}/extras/fish/tokyonight_${style}.fish";
     })
     (mkIf isTmux {
-      programs.tmux.extraConfig =
-        builtins.readFile "${tk}/extras/tmux/tokyonight_${style}.tmux";
+      programs.tmux.extraConfig = builtins.readFile "${tk}/extras/tmux/tokyonight_${style}.tmux";
     })
     (mkIf isNeovim {
       programs.neovim.plugins = [ pkgs.vimPlugins.tokyonight-nvim ];
@@ -73,4 +78,3 @@ in {
     })
   ];
 }
-

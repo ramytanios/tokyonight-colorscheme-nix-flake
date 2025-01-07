@@ -8,4 +8,3 @@
     homeModules.colorscheme = import ./colorscheme inputs;
   };
 }
-
